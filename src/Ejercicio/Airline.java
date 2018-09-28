@@ -46,14 +46,19 @@ public class Airline {
     }
     
     public void anadirVuelo(Flight vuelo){
+        int indice = 0;
         this.offeredFlights.add(vuelo);
         for(int i = 0; i < this.usedAirports.size(); i++){
             if(this.usedAirports.get(i).getName().equals(vuelo.getStart().getName())){
                 this.usedAirports.get(i).setRunwayCount(this.usedAirports.get(i).getRunwayCount()+1);
+                break;
             }else{
-                this.usedAirports.add(vuelo.getStart());
-                this.usedAirports.get(i).setRunwayCount(1);
+                indice++;
             }
+        }
+        if(indice == 0){
+            this.usedAirports.add(vuelo.getStart());
+            this.usedAirports.get(0).setRunwayCount(1);
         }
     }
     
@@ -70,11 +75,6 @@ public class Airline {
                 indice = i;
             }
         }
-        for(int i = 0; i <= this.usedAirports.size()-1; i++){
-            if(indice == i){
-                return this.usedAirports.get(i);
-            }
-        }
-        return null;
+        return this.usedAirports.get(indice);
     }
 }
